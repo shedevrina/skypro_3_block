@@ -3,6 +3,14 @@
 import json
 import datetime
 
+def data_json(file):
+    """"Функция data_json - считывание данных с файла .json.
+"""
+    with open(file, "r", encoding='utf-8') as file:  # преобразования из файла json в массив
+        data_client_operations_json = json.load(file)
+
+    return data_client_operations_json
+
 
 def operations(data_json, num_last_transactions, status_name, executed_operations=[]):
     """Функция data_operations выводит на экран список из 5 последних выполненных клиентом операций в формате:
@@ -57,9 +65,8 @@ def operations(data_json, num_last_transactions, status_name, executed_operation
 
     executed_operations.sort(key=lambda dictionary: dictionary['date'])  # сортировка по 'date'
 
-    for one_operation_last in sort_massive_state[
-                              -num_last_transactions:]:  # преобразование значени по ключу 'date' строка -> datatime
-
+    for one_operation_last in sort_massive_state[-num_last_transactions:]:  # преобразование значени по ключу 'date' строка -> datatime
+        print(one_operation_last)
         if 'date' in one_operation_last:
             one_operation_last['date'] = datetime.datetime.strptime(one_operation_last['date'], '%Y-%m-%dT%H:%M:%S.%f')
         else:
@@ -75,6 +82,11 @@ def operations(data_json, num_last_transactions, status_name, executed_operation
 
 
 def data_operations_print(data_operations):
+    """Функция data_operations_print - вывод операций в формате:
+13.11.2019 Перевод со счета на счет
+Счет 386 1** **** 9794 -> Счет **8125
+62814.53 руб.
+     """
     for data_operation in data_operations:
         print(f"""{data_operation['date']} {data_operation['description']}
 {data_operation['from']} -> {data_operation['to']}
