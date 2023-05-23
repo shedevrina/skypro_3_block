@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-import json
 
-from functions import operations, data_operations_print
+if __name__ == "__main__":
 
-data_client_operations_json = []
+    from functions import data_json, operations, data_operations_print
 
-with open("operations.json", "r", encoding='utf-8') as file:  # преобразования из файла json в массив
-    data_client_operations_json = json.load(file)
+    data_client_operations_json = []
 
-executed_operations_last = operations(data_client_operations_json, 5, "EXECUTED")
+    data = data_json("operations.json")
 
-data_operations_print(executed_operations_last)
+    executed_operations_last = operations(data, 5, "EXECUTED")
+
+    data_operations_print(executed_operations_last)
 
 
 
